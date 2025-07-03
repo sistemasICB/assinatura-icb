@@ -47,6 +47,14 @@
     <label class="label">E-mail:</label><br>
     <input type="text" id="email" placeholder="email@dominio.com">
 
+    <label class="label">Empresa:</label><br>
+    <select id="empresa">
+      <option value="icb">Instituto Conhecer Brasil</option>
+      <option value="anc">Academia Nacional de Cultura</option>
+      <option value="goup">Go Up</option>
+      <option value="Go7">Go 7</option>
+    </select>
+
     <br><br>
     <button onclick="gerarAssinatura()">Gerar Assinatura</button>
     <br><br>
@@ -76,6 +84,8 @@
         }
 
         function gerarAssinatura() {
+            const empresaSelecionada = document.getElementById("empresa").value;
+            const config = configEmpresas[empresaSelecionada];
             const nome = document.getElementById("nome").value.trim();
             const cargo = document.getElementById("cargo").value.trim();
             const telefone = document.getElementById("telefone").value.trim();
@@ -90,6 +100,53 @@
             if (!validarEmail(email)) {
             alert("Digite um e-mail válido.");
             return;
+            }
+
+            const configEmpresas = {
+              icb: {
+                  cor: "#286295",
+                  nome: "Instituto Conhecer Brasil",
+                  site: "https://www.institutoconhecerbrasil.org.br",
+                  logo_site: "",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "",
+                  logo_facebook: "",
+                  instagram: "",
+                  logo_instagram: ""
+              },
+              anc: {
+                  cor: "#000000",
+                  nome: "Academia Nacional de Cultura",
+                  site: "https://academianacionaldecultura.org",
+                  logo_site: "",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "",
+                  logo_facebook: "",
+                  instagram: "",
+                  logo_instagram: ""
+              },
+              goup: {
+                  cor: "#000000",
+                  nome: "Go Up",
+                  site: "https://www.goup.com.br",
+                  logo_site: "",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "",
+                  logo_facebook: "",
+                  instagram: "",
+                  logo_instagram: ""
+              },
+              Go7: {
+                  cor: "#000000",
+                  nome: "Go 7",
+                  site: "https://www.go7.com.br",
+                  logo_site: "",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "",
+                  logo_facebook: "",
+                  instagram: "",
+                  logo_instagram: ""
+              }
             }
 
             const assinaturaHTML = `
