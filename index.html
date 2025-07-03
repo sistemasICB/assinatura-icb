@@ -52,7 +52,7 @@
       <option value="icb">Instituto Conhecer Brasil</option>
       <option value="anc">Academia Nacional de Cultura</option>
       <option value="goup">Go Up</option>
-      <option value="Go7">Go 7</option>
+      <option value="go7">Go 7</option>
     </select>
 
     <br><br>
@@ -62,6 +62,69 @@
     <div id="resultado"></div>
 
     <script>
+            const configEmpresas = {
+              icb: {
+                  cor: "#286295",
+                  nome: "Instituto Conhecer Brasil",
+                  site: "https://www.institutoconhecerbrasil.org.br",
+                  logo_site: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/logo-branco-1024x421.png%20(1).png?raw=true",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "https://www.facebook.com/institutoconhecerbrasil/",
+                  logo_facebook: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/facebook%20(3).png?raw=true",
+                  instagram: "https://www.instagram.com/conhecer_brasil/",
+                  logo_instagram: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/instagram%20(2).png?raw=true",
+                  mail: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/email%20(1).png?raw=true",
+                  gps: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/gps%20(1).png?raw=true",
+                  link: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/link%20(1).png?raw=true",
+                  telefone: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/phone-call%20(1).png?raw=true"
+              },
+              anc: {
+                  cor: "#000000",
+                  nome: "Academia Nacional de Cultura",
+                  site: "https://academianacionaldecultura.org",
+                  logo_site: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/LogoANC.png?raw=true",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "https://www.facebook.com/academianacionaldecultura/",
+                  logo_facebook: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/facebook%20(4).png?raw=true",
+                  instagram: "https://www.instagram.com/academianacionaldecultura/",
+                  logo_instagram: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/instagram%20(3).png?raw=true",
+                  mail: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/email%20(3).png?raw=true",
+                  gps: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/gps%20(3).png?raw=true",
+                  link: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/link%20(3).png?raw=true",
+                  telefone: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/phone-call%20(2).png?raw=true"
+              },
+              goup: {
+                  cor: "#000000",
+                  nome: "Go Up",
+                  site: "https://goup.com.br",
+                  logo_site: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/Logo%20Go%20UP.png?raw=true",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "",
+                  logo_facebook: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/facebook%20(5).png?raw=true",
+                  instagram: "",
+                  logo_instagram: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/instagram%20(4).png?raw=true",
+                  mail: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/email%20(2).png?raw=true",
+                  gps: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/gps%20(2).png?raw=true",
+                  link: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/link%20(2).png?raw=true",
+                  telefone: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/phone-call%20(3).png?raw=true"
+              },
+              Go7: {
+                  cor: "#000000",
+                  nome: "Go 7",
+                  site: "https://www.go7.com.br",
+                  logo_site: "",
+                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
+                  facebook: "",
+                  logo_facebook: "",
+                  instagram: "",
+                  logo_instagram: "",
+                  mail: "",
+                  gps: "",
+                  link: "",
+                  telefone: ""
+              }
+            }
+
         function formatarTelefone(valor) {
             let numeros = valor.replace(/\D/g, "").slice(0, 11); // Garante no máximo 11 dígitos
 
@@ -83,14 +146,21 @@
             return regex.test(email);
         }
 
+        function definirPreposicao(nomeEmpresa) {
+          const empresasFemininas = ["Academia Nacional de Cultura", "Go Up", "Go 7"];
+          return empresasFemininas.includes(nomeEmpresa) ? "Na" : "No";
+        }
+
         function gerarAssinatura() {
             const empresaSelecionada = document.getElementById("empresa").value;
             const config = configEmpresas[empresaSelecionada];
+            const preposicao = definirPreposicao(config.nome);
+            const logoWidth = empresaSelecionada === "anc" ? "100" : "120";
             const nome = document.getElementById("nome").value.trim();
             const cargo = document.getElementById("cargo").value.trim();
             const telefone = document.getElementById("telefone").value.trim();
             const email = document.getElementById("email").value.trim();
-            const site = "https://www.institutoconhecerbrasil.org.br";
+            const site = config.site;
 
             // Validação
             if (!nome || !cargo || !telefone || !email) {
@@ -102,107 +172,63 @@
             return;
             }
 
-            const configEmpresas = {
-              icb: {
-                  cor: "#286295",
-                  nome: "Instituto Conhecer Brasil",
-                  site: "https://www.institutoconhecerbrasil.org.br",
-                  logo_site: "",
-                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
-                  facebook: "",
-                  logo_facebook: "",
-                  instagram: "",
-                  logo_instagram: ""
-              },
-              anc: {
-                  cor: "#000000",
-                  nome: "Academia Nacional de Cultura",
-                  site: "https://academianacionaldecultura.org",
-                  logo_site: "",
-                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
-                  facebook: "",
-                  logo_facebook: "",
-                  instagram: "",
-                  logo_instagram: ""
-              },
-              goup: {
-                  cor: "#000000",
-                  nome: "Go Up",
-                  site: "https://www.goup.com.br",
-                  logo_site: "",
-                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
-                  facebook: "",
-                  logo_facebook: "",
-                  instagram: "",
-                  logo_instagram: ""
-              },
-              Go7: {
-                  cor: "#000000",
-                  nome: "Go 7",
-                  site: "https://www.go7.com.br",
-                  logo_site: "",
-                  endereco: "Av. Paulista, 807 - Conj 2315, Bela Vista - SP",
-                  facebook: "",
-                  logo_facebook: "",
-                  instagram: "",
-                  logo_instagram: ""
-              }
-            }
-
             const assinaturaHTML = `
             <div class="assinatura">
                 <div id="assinaturaBox">
                 <table cellpadding="0" cellspacing="0" border="0" width="600" style="font-family: Arial, sans-serif; max-width: 600px;">
                     <tr>
                     <td style="padding-right: 15px; vertical-align: top;">
-                        <p style="margin: 0; font-weight: bold; font-size: 16px;">${nome}</p>
-                        <p style="margin: 0;">${cargo}<br>ICB</p>
+                        <p style="margin: 0; font-weight: bold; font-size: 16px;">${nome}</p><br>
+                        <p style="margin: 0;">${cargo}<br><br>${config.nome}</p>
                     </td>
-                    <td style="border-left: 2px solid #286295; padding-left: 15px;">
+                    <td style="border-left: 2px solid ${config.cor}; padding-left: 15px;">
                         <table cellpadding="4" cellspacing="0" border="0" style="font-size: 14px;">
                         <tr>
-                            <td><img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/phone-call%20(1).png?raw=true" alt="Telefone" width="20" /></td>
+                            <td><img src="${config.telefone}" alt="Telefone" width="20" /></td>
                             <td>${telefone}</td>
                         </tr>
                         <tr>
-                            <td><img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/email%20(1).png?raw=true" alt="E-mail" width="20" /></td>
+                            <td><img src="${config.mail}" alt="E-mail" width="20" /></td>
                             <td><a href="mailto:${email}" style="color: #1a0dab; text-decoration: none;">${email}</a></td>
                         </tr>
                         <tr>
-                            <td><img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/link%20(1).png?raw=true" alt="Site" width="20" /></td>
-                            <td><a href="${site}" style="color: #1a0dab; text-decoration: none;">${site.replace(/^https?:\/\//, '')}</a></td>
+                            <td><img src="${config.link}" alt="Site" width="20" /></td>
+                            <td><a href="${config.site}" style="color: #1a0dab; text-decoration: none;">${config.site.replace(/^https?:\/\//, '')}</a></td>
                         </tr>
                         <tr>
-                            <td><img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/gps%20(1).png?raw=true" alt="Endereço" width="20" /></td>
-                            <td>Av. Paulista, 807 - Conj 2315, Bela Vista - SP</td>
+                            <td><img src="${config.gps}" alt="Endereço" width="20" /></td>
+                            <td>${config.endereco}</td>
                         </tr>
                         </table>
                     </td>
                     </tr>
                     <tr>
                     <td colspan="2" style="padding-top: 10px; padding-bottom: 10px;">
-                        <hr style="border: 1px solid #286295; margin: 0;">
+                        <hr style="border: 1px solid ${config.cor}; margin: 0;">
                     </td>
                     </tr>
                     <tr>
                     <td>
-                        <a href="${site}" target="_blank" style="text-decoration: none;">
-                        <img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/logo-branco-1024x421.png%20(1).png?raw=true" alt="Logo ICB" width="120" />
+                        <a href="${config.site}" target="_blank" style="text-decoration: none;">
+                        <img src="${config.logo_site}" alt="Logo da empresa" width="${logoWidth}" />
                         </a>
                     </td>
                     <td align="right">
-                        <a href="https://www.facebook.com/institutoconhecerbrasil/" style="margin-right: 10px; text-decoration: none;">
-                        <img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/facebook%20(3).png?raw=true" alt="Facebook" width="25" />
-                        </a>
-                        <a href="https://www.instagram.com/conhecer_brasil/" style="margin-right: 15px; text-decoration: none;">
-                        <img src="https://github.com/sistemasICB/assinatura-icb/blob/main/img/instagram%20(2).png?raw=true" alt="Instagram" width="25" />
-                        </a>
+                        ${config.facebook ? `
+                        <a href="${config.facebook}" style="margin-right: 10px; text-decoration: none;">
+                            <img src="${config.logo_facebook}" alt="Facebook" width="25" />
+                        </a>` : ''}
+
+                        ${config.instagram ? `
+                        <a href="${config.instagram}" style="margin-right: 15px; text-decoration: none;">
+                            <img src="${config.logo_instagram}" alt="Instagram" width="25" />
+                        </a>` : ''}
                     </td>
                     </tr>
                     <tr>
                     <td colspan="2" style="font-size: 11px; color: #444; padding-top: 20px; line-height: 1.5;">
-                        <strong>Compromisso com a sua privacidade:</strong><br>
-                        No Instituto Conhecer Brasil, acreditamos que o respeito à privacidade é parte essencial da confiança. Por isso, cuidamos dos dados pessoais com responsabilidade, ética e em conformidade com a Lei Geral de Proteção de Dados (LGPD).<br><br>
+                        <br><strong>Compromisso com a sua privacidade:</strong><br>
+                        ${preposicao} ${config.nome}, acreditamos que o respeito à privacidade é parte essencial da confiança. Por isso, cuidamos dos dados pessoais com responsabilidade, ética e em conformidade com a Lei Geral de Proteção de Dados (LGPD).<br><br>
                         Esta mensagem, incluindo qualquer anexo, é destinada exclusivamente para a(s) pessoa(s) a quem é dirigida, podendo conter informação confidencial e/ou legalmente protegida. Se você não for o destinatário desta mensagem, por favor, não divulgue, copie, distribua, examine ou, de qualquer forma, utilize a informação aqui contida, por ser ilegal. Caso você tenha recebido esta mensagem por engano, pedimos que nos retorne este e-mail, e elimine seu conteúdo em sua base de dados, registros ou sistema de controle.
                     </td>
                     </tr>
@@ -212,6 +238,7 @@
             <br><br>
             <button onclick="copiarAssinatura()">Copiar Assinatura</button>
             `;
+
 
             document.getElementById("resultado").innerHTML = assinaturaHTML;
         }
