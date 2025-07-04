@@ -227,9 +227,18 @@
                     </tr>
                     <tr>
                     <td colspan="2" style="font-size: 11px; color: #444; padding-top: 20px; line-height: 1.5;">
-                        <br><strong>Compromisso com a sua privacidade:</strong><br>
-                        ${preposicao} ${config.nome}, acreditamos que o respeito à privacidade é parte essencial da confiança. Por isso, cuidamos dos dados pessoais com responsabilidade, ética e em conformidade com a Lei Geral de Proteção de Dados (LGPD).<br><br>
-                        Esta mensagem, incluindo qualquer anexo, é destinada exclusivamente para a(s) pessoa(s) a quem é dirigida, podendo conter informação confidencial e/ou legalmente protegida. Se você não for o destinatário desta mensagem, por favor, não divulgue, copie, distribua, examine ou, de qualquer forma, utilize a informação aqui contida, por ser ilegal. Caso você tenha recebido esta mensagem por engano, pedimos que nos retorne este e-mail, e elimine seu conteúdo em sua base de dados, registros ou sistema de controle.
+                      ${empresaSelecionada === 'goup'
+                        ? `
+                          <strong>Privacy Commitment:</strong><br>
+                          At Go Up, we believe that respect for privacy is a core part of trust. We therefore handle personal data responsibly, ethically, and in accordance with the General Data Protection Law (LGPD).<br><br>
+                          This message, including any attachments, is intended exclusively for the person(s) to whom it is addressed and may contain confidential and/or legally protected information. If you are not the intended recipient of this message, please do not disclose, copy, distribute, review, or otherwise use the information contained herein, as it may be unlawful. If you received this message in error, we kindly ask you to return this email to us and delete its content from your database, records, or control system.
+                          `
+                        : `
+                          <strong>Compromisso com a sua privacidade:</strong><br>
+                          ${preposicao} ${config.nome}, acreditamos que o respeito à privacidade é parte essencial da confiança. Por isso, cuidamos dos dados pessoais com responsabilidade, ética e em conformidade com a Lei Geral de Proteção de Dados (LGPD).<br><br>
+                          Esta mensagem, incluindo qualquer anexo, é destinada exclusivamente para a(s) pessoa(s) a quem é dirigida, podendo conter informação confidencial e/ou legalmente protegida. Se você não for o destinatário desta mensagem, por favor, não divulgue, copie, distribua, examine ou, de qualquer forma, utilize a informação aqui contida, por ser ilegal. Caso você tenha recebido esta mensagem por engano, pedimos que nos retorne este e-mail, e elimine seu conteúdo em sua base de dados, registros ou sistema de controle.
+                          `
+                      }
                     </td>
                     </tr>
                 </table>
