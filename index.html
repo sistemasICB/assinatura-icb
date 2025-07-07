@@ -102,7 +102,7 @@
     <input type="text" id="cargo" placeholder="Ex: Analista Administrativo" />
 
     <label class="label">Telefone:</label>
-    <input type="text" id="telefone" placeholder="(11) 95555-5555 ou +1 555 555 5555" /> <br>
+    <input type="text" id="telefone" placeholder="(11) 95555-5555 ou +1 555 555 5555" maxlength="20" /> <br>
     <small style="color: #555;">Aceita número nacional ou internacional (coloque o símbolo de "+" para colocar o código do país e o número)</small>
 
     <label class="label">E-mail corporativo:</label>
@@ -186,23 +186,19 @@
             }
 
         function formatarTelefone(valor) {
-        // Permite apenas números e o símbolo '+'
-            valor = valor.replace(/[^\d+]/g, "");
+          // Se começar com +, mantém o + e os espaços e números
+          if (valor.startsWith("+")) {
+            return valor.replace(/[^\d+ ]/g, "").slice(0, 20); // permite espaços
+          }
 
-            if (valor.startsWith("+")) {
-                // Número internacional: mantém como está
-                return valor;
-            }
+          // Caso contrário, aplica formatação brasileira com máscara
+          let numeros = valor.replace(/\D/g, "").slice(0, 11);
 
-            let numeros = valor.replace(/\D/g, "").slice(0, 11); // Apenas dígitos
-
-            if (numeros.length <= 10) {
-                // Fixo ou celular antigo
-                return numeros.replace(/^(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-            } else {
-                // Celular com 9 dígitos
-                return numeros.replace(/^(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
-            }
+          if (numeros.length <= 10) {
+            return numeros.replace(/^(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+          } else {
+            return numeros.replace(/^(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
+          }
         }
 
         document.getElementById("telefone").addEventListener("input", function () {
