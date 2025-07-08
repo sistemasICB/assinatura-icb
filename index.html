@@ -115,6 +115,7 @@
       <option value="anc">Academia Nacional de Cultura</option>
       <option value="goup">Go Up</option>
       <option value="go7">Go 7</option>
+      <option value="pessoal">Pessoal</option>
     </select>
     <small style="color: #555;">Selecione a empresa da qual você faz parte</small>
     
@@ -183,6 +184,21 @@
                   gps: "",
                   link: "",
                   telefone: ""
+              },
+              pessoal: {
+                cor: "#000000",
+                nome: "", // <- vazio para ocultar o nome da empresa
+                site: "",
+                logo_site: "",
+                endereco: "",
+                facebook: "",
+                logo_facebook: "",
+                instagram: "",
+                logo_instagram: "",
+                mail: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/email%20(1).png?raw=true",
+                gps: "",
+                link: "",
+                telefone: "https://github.com/sistemasICB/assinatura-icb/blob/main/img/phone-call%20(1).png?raw=true"
               }
             }
 
@@ -227,14 +243,45 @@
             const email = document.getElementById("email").value.trim();
             const site = config.site;
 
-            // Validação
-            if (!nome || !cargo || !telefone || !email) {
-            alert("Preencha todos os campos obrigatórios.");
-            return;
+            // Se o campo de email estiver preenchido, valida o formato:
+            if (email && !validarEmail(email)) {
+              alert("Digite um e-mail válido ou deixe o campo vazio.");
+              return;
             }
-            if (!validarEmail(email)) {
-            alert("Digite um e-mail válido.");
-            return;
+
+            // MONTA infosContato AQUI:
+            let infosContato = "";
+
+            if (telefone) {
+              infosContato += `
+                <tr>
+                  <td><img src="${config.telefone}" alt="Telefone" width="20" /></td>
+                  <td>${telefone}</td>
+                </tr>`;
+            }
+
+            if (email) {
+              infosContato += `
+                <tr>
+                  <td><img src="${config.mail}" alt="E-mail" width="20" /></td>
+                  <td><a href="mailto:${email}" style="color: #1a0dab; text-decoration: none;">${email}</a></td>
+                </tr>`;
+            }
+
+            if (site) {
+              infosContato += `
+                <tr>
+                  <td><img src="${config.link}" alt="Site" width="20" /></td>
+                  <td><a href="${site}" style="color: #1a0dab; text-decoration: none;">${site.replace(/^https?:\/\//, '')}</a></td>
+                </tr>`;
+            }
+
+            if (config.endereco) {
+              infosContato += `
+                <tr>
+                  <td><img src="${config.gps}" alt="Endereço" width="20" /></td>
+                  <td>${config.endereco}</td>
+                </tr>`;
             }
 
             const assinaturaHTML = `
@@ -243,27 +290,13 @@
                 <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 600px; font-family: Arial, sans-serif;">
                     <tr>
                     <td style="padding-right: 15px; vertical-align: top;">
-                        <p style="margin: 0; font-weight: bold; font-size: 16px;">${nome}</p><br>
-                        <p style="margin: 0;">${cargo}<br><br>${config.nome}</p>
+                      <p style="margin: 0; font-weight: bold; font-size: 16px;">${nome}</p>
+                      ${cargo ? `<p style="margin: 0; margin-top: 4px;">${cargo}</p>` : ""}
+                      ${config.nome && empresaSelecionada !== "pessoal" ? `<p style="margin: 8px 0 0;">${config.nome}</p>` : ""}
                     </td>
                     <td style="border-left: 2px solid ${config.cor}; padding-left: 15px;">
                         <table cellpadding="4" cellspacing="0" border="0" style="font-size: 14px;">
-                        <tr>
-                            <td><img src="${config.telefone}" alt="Telefone" width="20" /></td>
-                            <td>${telefone}</td>
-                        </tr>
-                        <tr>
-                            <td><img src="${config.mail}" alt="E-mail" width="20" /></td>
-                            <td><a href="mailto:${email}" style="color: #1a0dab; text-decoration: none;">${email}</a></td>
-                        </tr>
-                        <tr>
-                            <td><img src="${config.link}" alt="Site" width="20" /></td>
-                            <td><a href="${config.site}" style="color: #1a0dab; text-decoration: none;">${config.site.replace(/^https?:\/\//, '')}</a></td>
-                        </tr>
-                        <tr>
-                            <td><img src="${config.gps}" alt="Endereço" width="20" /></td>
-                            <td>${config.endereco}</td>
-                        </tr>
+                          ${infosContato}
                         </table>
                     </td>
                     </tr>
@@ -272,24 +305,25 @@
                         <hr style="border: 1px solid ${config.cor}; margin: 0;">
                     </td>
                     </tr>
+                    ${config.logo_site ? `
                     <tr>
-                    <td>
+                      <td>
                         <a href="${config.site}" target="_blank" style="text-decoration: none;">
-                        <img src="${config.logo_site}" alt="Logo da empresa" width="${logoWidth}" />
+                          <img src="${config.logo_site}" alt="Logo da empresa" width="${logoWidth}" />
                         </a>
-                    </td>
-                    <td align="right">
+                      </td>
+                      <td align="right">
                         ${config.facebook ? `
                         <a href="${config.facebook}" style="margin-right: 10px; text-decoration: none;">
-                            <img src="${config.logo_facebook}" alt="Facebook" width="25" />
+                          <img src="${config.logo_facebook}" alt="Facebook" width="25" />
                         </a>` : ''}
 
                         ${config.instagram ? `
                         <a href="${config.instagram}" style="margin-right: 15px; text-decoration: none;">
-                            <img src="${config.logo_instagram}" alt="Instagram" width="25" />
+                          <img src="${config.logo_instagram}" alt="Instagram" width="25" />
                         </a>` : ''}
-                    </td>
-                    </tr>
+                      </td>
+                    </tr>` : ''}
                 </table>
                 </div>
 
