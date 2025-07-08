@@ -342,7 +342,19 @@
                         This message, including any attachments, is intended exclusively for the person(s) to whom it is addressed and may contain confidential and/or legally protected information. If you are not the intended recipient of this message, please do not disclose, copy, distribute, review, or otherwise use the information contained herein, as it may be unlawful. If you received this message in error, we kindly ask you to return this email to us and delete its content from your database, records, or control system.
                       `;
 
-                      return empresaSelecionada === 'goup' ? textoEN : textoPT + '<br><br>' + textoEN;
+                      if (empresaSelecionada === 'goup') {
+                        return textoEN;
+                      } else if (empresaSelecionada === 'pessoal') {
+                        return `
+                          <strong>Compromisso com a sua privacidade:</strong><br><br>
+                          Esta mensagem, incluindo qualquer anexo, é destinada exclusivamente para a(s) pessoa(s) a quem é dirigida, podendo conter informação confidencial e/ou legalmente protegida. Se você não for o destinatário desta mensagem, por favor, não divulgue, copie, distribua, examine ou, de qualquer forma, utilize a informação aqui contida, por ser ilegal. Caso você tenha recebido esta mensagem por engano, pedimos que nos retorne este e-mail, e elimine seu conteúdo em sua base de dados, registros ou sistema de controle.<br><br>
+                          
+                          <strong>Privacy Commitment:</strong><br><br>
+                          This message, including any attachments, is intended exclusively for the person(s) to whom it is addressed and may contain confidential and/or legally protected information. If you are not the intended recipient of this message, please do not disclose, copy, distribute, review, or otherwise use the information contained herein, as it may be unlawful. If you received this message in error, we kindly ask you to return this email to us and delete its content from your database, records, or control system.
+                        `;
+                      } else {
+                        return textoPT + '<br><br>' + textoEN;
+                      }
                     })()}
                   </div>
                 </div>
